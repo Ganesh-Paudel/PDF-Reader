@@ -15,7 +15,7 @@ class PDFViewer(QGraphicsView):
         self.setTransformationAnchor(QGraphicsView.ViewportAnchor.AnchorUnderMouse)
         self.setResizeAnchor(QGraphicsView.ViewportAnchor.AnchorUnderMouse)
 
-    def display_page(self, pixmapData):
+    def displayPage(self, pixmapData):
         self.scene.clear()
         img = QImage(
             pixmapData.samples, 

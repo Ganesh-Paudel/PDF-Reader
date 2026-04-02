@@ -5,23 +5,38 @@ This class only reacts with pdf. It handles anything that we need from pdf.
 It initializes pdf using fitz (pymupdf) and returns any attributes that we might need. Any get_text_at_pos
 attributes needed can be added in the class and be used to return
 
-''''
+'''
 class PDFEngine:
     def __init__(self):
         self.pdfFile = None
         self.currentPageNumber = 0
+        self.zoomLevel = 1.0
 
-    def open_file(self, filePath):
+    def openFile(self, filePath):
         self.pdfFile = fitz.open(filePath)
+        self.totalPages = len(self.pdfFile)
         return len(self.pdfFile)
 
-    def get_page_image(self, pageNum, zoomLevel=1.0):
-        page = self.pdfFile.load_page(pagenum)
-        mat = fitz.Matrix(zoomLevel, zoomLevel)
+    def getPageImage(self, pageNum):
+        page = self.pdfFile.load_page(pageNum)
+        mat = fitz.Matrix(self.zoomLevel, self.zoomLevel)
         pix = page.get_pixmap(matrix=mat)
         return pix
 
-    def get_text_at_pos(self, pageNum, x, y):
+    def getNextPage(self):
+        if self.currentPageNumber < self.totalPages - 1:
+            self.currentPageNumber += 1
+        return self.getCurrentPage()
+
+    def getPreviousPage(self):
+        if self.currentPageNumber >- 0:
+            self.currentPageNumber -= 1
+        return self.getCurrentPage()
+
+    def getCurrentPage(self):
+        return self.getPageImage(self.currentPageNumber)
+
+    def getTextAtPos(self, pageNum, x, y):
         page = self.doc.load_page(pageNum)
         words = page.get_text("words")  
         for w in words:
