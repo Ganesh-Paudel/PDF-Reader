@@ -36,10 +36,7 @@ class PDFEngine:
     def getCurrentPage(self):
         return self.getPageImage(self.currentPageNumber)
 
-    def getTextAtPos(self, pageNum, x, y):
-        page = self.doc.load_page(pageNum)
-        words = page.get_text("words")  
-        for w in words:
-            if w[0] <= x <= w[2] and w[1] <= y <= w[3]:
-                return w[4]
-        return None
+    def updateZoom(self, deltaValue):
+        self.zoomLevel = max(0.5, min(3.0, self.zoomLevel + deltaValue))
+        return self.getCurrentPage()
+

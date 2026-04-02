@@ -39,6 +39,23 @@ class DocumentApp(QMainWindow):
         elif event.key() in (Qt.Key.Key_Left, Qt.Key.Key_H):
             self.goPreviousPage()
 
+        if event.key() == Qt.Key.Key_Equal:
+            self.zoomLogic(0.1)
+        elif event.key() == Qt.Key.Key_Minus:
+            self.zoomLogic(-0.1)
+
+    def wheelEvent(self, event):
+        if event.modifiers() == Qt.KeyboardModifier.ControlModifier:
+            delta = 0.1 if event.angleDelta().y() > 0 else -0.1
+            self.zoomLogic(delta)
+        else:
+            super().wheelEvent(event)
+
+    def zoomLogic(self, delta):
+        if self.engine.pdfFile:
+            pix = self.engine.updateZoom(delta)
+            self.ui.viewer.displayPage(pix)
+     
     def goNextPage(self):
         self.updateDisplay(self.engine.getNextPage())
 

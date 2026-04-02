@@ -26,3 +26,4 @@ class PDFViewer(QGraphicsView):
         )
         qPixmap = QPixmap.fromImage(img)
         self.scene.addPixmap(qPixmap)
+        self.setSceneRect(self.scene.itemsBoundingRect())
