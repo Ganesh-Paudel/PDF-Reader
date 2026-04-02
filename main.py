@@ -3,6 +3,10 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from PDFViewer import PDFViewer
 from PDFEngine import PDFEngine
 
+'''
+This is the main entry point of the application.
+It initiatest he application and controls the elements in the window, any UI in the screen
+'''
 class DocumentApp(QMainWindow):
     def __init__(self):
         super().__init__()

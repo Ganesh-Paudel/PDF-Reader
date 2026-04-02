@@ -1,5 +1,11 @@
 import fitz  
 
+'''
+This class only reacts with pdf. It handles anything that we need from pdf.
+It initializes pdf using fitz (pymupdf) and returns any attributes that we might need. Any get_text_at_pos
+attributes needed can be added in the class and be used to return
+
+''''
 class PDFEngine:
     def __init__(self):
         self.pdfFile = None
